@@ -3,6 +3,7 @@
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4SystemOfUnits.hh"
 #include "G4GeneralParticleSource.hh"
+#include "G4SingleParticleSource.hh"
 #include "G4IonTable.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4ThreeVector.hh"

@@ -2,6 +2,22 @@
 
 MyPrimaryGenerator::MyPrimaryGenerator() {
   fGeneralParticleSource = new G4GeneralParticleSource();
+  
+  // First source: excited deuterium nuclei
+  // ------------------------------------------------------------------------------------------------------------------------
+  G4SingleParticleSource* exDeuteriumIon = new G4SingleParticleSource();
+  exDeuteriumIon->SetParticleDefinition(G4IonTable::GetIonTable()->GetIon(1, 2, 2 * MeV));
+  exDeuteriumIon->GetPosDist()->SetPosDisType("Volume"); // Point, Beam, Plane, Surface, Volume
+  exDeuteriumIon->GetPosDist()->SetPosDisShape("Sphere"); // Square, Circle, Ellipse, Rectangle, Sphere, Ellipsoid, Cylinder, Parallelepiped
+  exDeuteriumIon->GetPosDist()->SetRadius(2*um);
+  exDeuteriumIon->GetPosDist()->SetCentreCoords(G4ThreeVector(0., 0., 4. * cm));
+  exDeuteriumIon->GetPosDist()->SetPosRot1(G4ThreeVector(0., 0., 0.));
+  exDeuteriumIon->GetPosDist()->SetPosRot2(G4ThreeVector(0., 0., 0.));
+  exDeuteriumIon->GetPosDist()->ConfineSourceToVolume("NULL");
+  // ------------------------------------------------------------------------------------------------------------------------
+
+  fGeneralParticleSource->SetParticleDefinition(exDeuteriumIon);
+  fGeneralParticleSource->GetPos
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator() {
@@ -9,17 +25,6 @@ MyPrimaryGenerator::~MyPrimaryGenerator() {
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent) {
-
-  // What particle is that?
-  G4ParticleDefinition *exDeuteriumIon = G4IonTable::GetIonTable()->GetIon(1, 2, 2 * MeV);
-  fGeneralParticleSource->SetParticleDefinition(exDeuteriumIon);
-
-  // What is spatial distribution of the source?
-  G4SPSPosDistribution* spatialDist = new G4SPSPosDistribution();
-  spatialDist->SetPosDisType("Volume"); // Point, Beam, Plane, Surface, Volume
-  spatialDist->SetPosDisShape("Sphere"); // Square, Circle, Ellipse, Rectangle, Sphere, Ellipsoid, Cylinder, Parallelepiped
-  spatialDist->SetRadius(2*um);
-  spatialDist->SetCentreCoords(G4ThreeVector(0., 0., 0.));
 
 
   fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
