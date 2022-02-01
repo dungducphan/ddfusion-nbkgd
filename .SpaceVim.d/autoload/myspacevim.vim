@@ -30,12 +30,18 @@ function! myspacevim#before() abort
   " YCM keybinds
   " For C++
   call SpaceVim#custom#LangSPCGroupName('cpp', ['y'], 'YouCompleteMe')
-  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'd'], 'YcmCompleter GoToDeclaration', 'Go to declaration.', 1)
-  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'D'], 'YcmCompleter GoToDefinition', 'Go to definition.', 1)
+  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'e'], 'YcmCompleter GoToDeclaration', 'Go to declaration.', 1)
+  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'd'], 'YcmCompleter GoToDefinition', 'Go to definition.', 1)
+  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'i'], 'YcmCompleter GoToInclude', 'Go to include file.', 1)
+  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'g'], 'YcmCompleter GoTo', 'Go to sensible destination.', 1)
+  call SpaceVim#custom#LangSPC('cpp', 'nnoremap', ['y', 'm'], 'YcmCompleter GetDoc', 'Go to sensible destination.', 1)
   " For C
   call SpaceVim#custom#LangSPCGroupName('c', ['y'], 'YouCompleteMe')
-  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'd'], 'YcmCompleter GoToDeclaration', 'Go to declaration.', 1)
-  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'D'], 'YcmCompleter GoToDefinition', 'Go to definition.', 1)
+  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'e'], 'YcmCompleter GoToDeclaration', 'Go to declaration.', 1)
+  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'd'], 'YcmCompleter GoToDefinition', 'Go to definition.', 1)
+  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'i'], 'YcmCompleter GoToInclude', 'Go to include file.', 1)
+  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'g'], 'YcmCompleter GoTo', 'Go to sensible destination.', 1)
+  call SpaceVim#custom#LangSPC('c', 'nnoremap', ['y', 'm'], 'YcmCompleter GetDoc', 'Go to sensible destination.', 1)
 endfunction
 
 function! myspacevim#after() abort
