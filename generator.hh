@@ -2,8 +2,8 @@
 
 #include "G4VUserPrimaryGeneratorAction.hh"
 #include "G4SystemOfUnits.hh"
-#include "G4ParticleGun.hh"
-#include "G4ParticleTable.hh"
+#include "G4GeneralParticleSource.hh"
+#include "G4IonTable.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4ThreeVector.hh"
 #include "G4Event.hh"
@@ -17,5 +17,5 @@ public:
   void GeneratePrimaries(G4Event* anEvent) override;
 
 private:
-  G4ParticleGun *fParticleGun = nullptr;
+  G4GeneralParticleSource *fGeneralParticleSource = nullptr;
 };

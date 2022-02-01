@@ -1,23 +1,26 @@
 #include "generator.hh"
 
 MyPrimaryGenerator::MyPrimaryGenerator() {
-  fParticleGun = new G4ParticleGun(1);
+  fGeneralParticleSource = new G4GeneralParticleSource();
 }
 
 MyPrimaryGenerator::~MyPrimaryGenerator() {
-  delete fParticleGun;
+  delete fGeneralParticleSource;
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent) {
-  G4ParticleTable * particleTable = G4ParticleTable::GetParticleTable();
-  G4String particleName = "proton";
-  G4ParticleDefinition *particle = particleTable->FindParticle(particleName);
-  G4ThreeVector pos(0., 0., 0.);
-  G4ThreeVector mom(0., 0., 1.);
-  fParticleGun->SetParticlePosition(pos);
-  fParticleGun->SetParticleMomentumDirection(mom);
-  fParticleGun->SetParticleMomentum(100.*GeV);
-  fParticleGun->SetParticleDefinition(particle);
 
-  fParticleGun->GeneratePrimaryVertex(anEvent);
+  // What particle is that?
+  G4ParticleDefinition *exDeuteriumIon = G4IonTable::GetIonTable()->GetIon(1, 2, 2 * MeV);
+  fGeneralParticleSource->SetParticleDefinition(exDeuteriumIon);
+
+  // What is spatial distribution of the source?
+  G4SPSPosDistribution* spatialDist = new G4SPSPosDistribution();
+  spatialDist->SetPosDisType("Volume"); // Point, Beam, Plane, Surface, Volume
+  spatialDist->SetPosDisShape("Sphere"); // Square, Circle, Ellipse, Rectangle, Sphere, Ellipsoid, Cylinder, Parallelepiped
+  spatialDist->SetRadius(2*um);
+  spatialDist->SetCentreCoords(G4ThreeVector(0., 0., 0.));
+
+
+  fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
 }
