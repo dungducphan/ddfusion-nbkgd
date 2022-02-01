@@ -10,6 +10,8 @@
 #include "G4Event.hh"
 #include "G4String.hh"
 
+#include "TMath.h"
+
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:
   MyPrimaryGenerator();
