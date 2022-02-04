@@ -26,6 +26,8 @@ MyPrimaryGenerator::MyPrimaryGenerator() {
   exDeuteriumIon->GetAngDist()->SetMinPhi(0.);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(2 * TMath::Pi() * rad);
 
+  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Exp"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
+  exDeuteriumIon->GetEneDist()->SetEzero(4.343); // I~Exp(-E/E0)                                                  
   // ------------------------------------------------------------------------------------------------------------------------
 
 }
@@ -35,7 +37,5 @@ MyPrimaryGenerator::~MyPrimaryGenerator() {
 }
 
 void MyPrimaryGenerator::GeneratePrimaries(G4Event* anEvent) {
-
-
   fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
 }
