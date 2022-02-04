@@ -3,7 +3,7 @@
 MyPhysicsList::MyPhysicsList()
 :G4VModularPhysicsList()
 {
-  G4int verb = 1;
+  G4int verb = 2;
   SetVerboseLevel(verb);
 
   // Mandatory for G4NuclideTable
