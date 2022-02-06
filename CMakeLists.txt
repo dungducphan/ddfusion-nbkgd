@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.17 FATAL_ERROR)
 project(ddfusion_nbkgd)
 
 find_package(Geant4 REQUIRED ui_all vis_all multithreaded)
-find_package(ROOT)
+find_package(ROOT REQUIRED Core)
 
 include(${Geant4_USE_FILE})
 include(${ROOT_USE_FILE})
