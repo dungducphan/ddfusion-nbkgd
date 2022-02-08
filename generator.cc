@@ -31,16 +31,17 @@ MyPrimaryGenerator::MyPrimaryGenerator() {
                                                  G4ThreeVector(1, 0, 0));
   exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
                                                  G4ThreeVector(1, 1, 0));
+  /*
+    exDeuteriumIon->GetAngDist()->SetMinTheta(0);
+    exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
+    exDeuteriumIon->GetAngDist()->SetMinPhi(0);
+    exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
+  */
 
-  exDeuteriumIon->GetAngDist()->SetMinTheta(0);
-  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
-  exDeuteriumIon->GetAngDist()->SetMinPhi(0);
-  exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
-
-  // exDeuteriumIon->GetAngDist()->SetMinTheta(0. - 0.01);
-  // exDeuteriumIon->GetAngDist()->SetMaxTheta(0. + 0.01);
-  // exDeuteriumIon->GetAngDist()->SetMinPhi(TMath::Pi()/2. - 0.01);
-  // exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi()/2. + 0.01);
+  exDeuteriumIon->GetAngDist()->SetMinTheta(0. - 0.015);
+  exDeuteriumIon->GetAngDist()->SetMaxTheta(0. + 0.015);
+  exDeuteriumIon->GetAngDist()->SetMinPhi(TMath::Pi() / 2. - 0.015);
+  exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() / 2. + 0.015);
 
   exDeuteriumIon->GetEneDist()->SetEnergyDisType(
       "Exp"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse
