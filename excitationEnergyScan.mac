@@ -1,0 +1,30 @@
+/gps/particle ion
+/gps/ion 1 2 1 1000
+/run/initialize
+/run/beamOn 5000
+
+/gps/particle ion
+/gps/ion 1 2 1 1500
+/run/initialize
+/run/beamOn 5000
+
+/gps/particle ion
+/gps/ion 1 2 1 2000
+/run/initialize
+/run/beamOn 5000
+
+/gps/particle ion
+/gps/ion 1 2 1 2500
+/run/initialize
+/run/beamOn 5000
+
+/gps/particle ion
+/gps/ion 1 2 1 3000
+/run/initialize
+/run/beamOn 5000
+
+/gps/particle ion
+/gps/ion 1 2 1 3500
+/run/initialize
+/run/beamOn 5000
+
