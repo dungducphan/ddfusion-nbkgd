@@ -18,7 +18,10 @@ void MyRunAction::BeginOfRunAction(const G4Run* run) {
 
   man->CreateNtuple("Neutron", "Neutron");
   man->CreateNtupleDColumn("Energy");
-  man->FinishNtuple((int) run->GetRunID());
+  man->CreateNtupleDColumn("X");
+  man->CreateNtupleDColumn("Y");
+  man->CreateNtupleDColumn("Z");
+  man->FinishNtuple(0);
 }
 
 void MyRunAction::EndOfRunAction(const G4Run*) {
