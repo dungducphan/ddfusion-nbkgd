@@ -34,12 +34,8 @@ int main(int argc, char** argv) {
     G4String fileName = argv[1];
     uiManager->ApplyCommand(command + fileName);
   } else {
-    uiManager->ApplyCommand("/vis/open OGL");
-    uiManager->ApplyCommand("/vis/viewer/set/viewpointVector 1 0.8 0.7");
-    uiManager->ApplyCommand("/vis/drawVolume");
-    uiManager->ApplyCommand("/vis/viewer/set/autoRefresh true");
-    uiManager->ApplyCommand("/vis/scene/add/trajectories smooth");
-    uiManager->ApplyCommand("/vis/scene/endOfEventAction accumulate -1");
+    G4String command = "/control/execute ";
+    uiManager->ApplyCommand("/control/execute vis.mac");
     ui->SessionStart();
     delete ui;
   }
