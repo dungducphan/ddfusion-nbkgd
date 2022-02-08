@@ -18,7 +18,7 @@ int main(int argc, char** argv) {
   }
 
   G4RunManager *runManager = new G4MTRunManager();
-  runManager->SetNumberOfThreads(1);
+  runManager->SetNumberOfThreads(16);
   runManager->SetUserInitialization(new MyDetectorConstruction());
   runManager->SetUserInitialization(new MyPhysicsList());
   runManager->SetUserInitialization(new MyActionInitialization());
