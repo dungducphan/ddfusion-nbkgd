@@ -15,4 +15,5 @@ class MyRunAction : public G4UserRunAction {
     virtual void   EndOfRunAction(const G4Run*);
 
   private:
+    G4AnalysisManager *man;
 };

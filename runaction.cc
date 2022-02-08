@@ -7,25 +7,26 @@
 #include "TString.h"
 
 MyRunAction::MyRunAction() : G4UserRunAction() {
+    man = G4AnalysisManager::Instance();
+    man->CreateNtuple("Neutron", "Neutron");
+    man->CreateNtupleDColumn("Energy");
+    man->CreateNtupleDColumn("X");
+    man->CreateNtupleDColumn("Y");
+    man->CreateNtupleDColumn("Z");
+    man->FinishNtuple(0);
 }
 
 MyRunAction::~MyRunAction() {
 }
 
 void MyRunAction::BeginOfRunAction(const G4Run* run) {
-  G4AnalysisManager *man = G4AnalysisManager::Instance();
+  man = G4AnalysisManager::Instance();
   man->OpenFile(Form("neutron_run%05i.root", (int) run->GetRunID()));
 
-  man->CreateNtuple("Neutron", "Neutron");
-  man->CreateNtupleDColumn("Energy");
-  man->CreateNtupleDColumn("X");
-  man->CreateNtupleDColumn("Y");
-  man->CreateNtupleDColumn("Z");
-  man->FinishNtuple(0);
 }
 
 void MyRunAction::EndOfRunAction(const G4Run*) {
-  G4AnalysisManager *man = G4AnalysisManager::Instance();
+  man = G4AnalysisManager::Instance();
   man->Write();
   man->CloseFile();
 }
