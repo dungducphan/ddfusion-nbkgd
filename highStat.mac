@@ -1,5 +1,4 @@
 /gps/particle ion
 /gps/ion 1 2 1 2000
-/run/numberOfThreads 16
 /run/initialize
 /run/beamOn 100000

@@ -24,8 +24,14 @@ enable = true
 [[layers]]
 name = 'lang#c'
 enable = true
-format_on_save = true
+format_on_save = false
 enable_clang_syntax_highlight = true
+
+[[layers]]
+name = 'git'
+
+[[layers]]
+name = 'github'
 
 [[layers]]
 name = 'colorscheme'
@@ -35,6 +41,10 @@ name = 'incsearch'
 
 [[layers]]
 name = 'fzf'
+
+[[custom_plugins]]
+name = 'ryanoasis/vim-devicons'
+merged = 0
 
 [options]
 colorscheme = 'onedark'

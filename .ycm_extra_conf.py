@@ -45,6 +45,7 @@ flags = [
 '-I', '/usr/include',
 '-I', '/usr/local/include',
 '-I', '/home/dphan/ROOT/install/include',
+'-I', '/home/dphan/ROOT/install_dev/include',
 '-I', '/home/dphan/Geant4/install/include/Geant4'
 ]
 
