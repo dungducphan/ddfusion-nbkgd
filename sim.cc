@@ -18,12 +18,15 @@ int main(int argc, char **argv) {
         ui = new G4UIExecutive(argc, argv);
     }
 
-    G4RunManager *runManager = new G4MTRunManager();
-    runManager->SetNumberOfThreads(8);
+#ifdef G4MULTITHREADED
+    G4MTRunManager *runManager = new G4MTRunManager();
+#else
+    G4RunManager *runManager = new G4RunManager();
+#endif
+
     runManager->SetUserInitialization(new MyDetectorConstruction());
     runManager->SetUserInitialization(new MyPhysicsList());
     runManager->SetUserInitialization(new MyActionInitialization());
-    runManager->Initialize();
 
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();
