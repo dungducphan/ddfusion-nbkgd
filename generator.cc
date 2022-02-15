@@ -11,7 +11,7 @@ MyPrimaryGenerator::MyPrimaryGenerator() {
       G4ParticleTable::GetParticleTable()->FindParticle("e-");
 
   exDeuteriumIon->SetParticleDefinition(exDIon);
-  exDeuteriumIon->SetNumberOfParticles(10000);
+  exDeuteriumIon->SetNumberOfParticles(100);
 
   exDeuteriumIon->GetPosDist()->SetPosDisType(
       "Volume"); // Point, Beam, Plane, Surface, Volume
