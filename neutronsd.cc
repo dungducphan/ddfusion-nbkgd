@@ -14,9 +14,9 @@ G4bool NeutronSD::ProcessHits(G4Step * aStep, G4TouchableHistory *) {
 
   G4StepPoint *prePoint = aStep->GetPreStepPoint();
 
-  G4cout << "Neutron produced by: " << track->GetCreatorProcess()->GetProcessName() << " in " << track->GetOriginTouchable()->GetVolume()->GetName() << G4endl;
-
   G4double energy = prePoint->GetKineticEnergy();
+  if (energy > 5.5 * MeV)
+    G4cout << "Neutron produced by: " << track->GetCreatorProcess()->GetProcessName() << " in " << track->GetOriginTouchable()->GetVolume()->GetName() << G4endl;
   G4double x_hit = prePoint->GetPosition().getX();
   G4double y_hit = prePoint->GetPosition().getY();
   G4double z_hit = prePoint->GetPosition().getZ();
