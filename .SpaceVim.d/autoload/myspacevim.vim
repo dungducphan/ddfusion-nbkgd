@@ -12,7 +12,7 @@ function! myspacevim#before() abort
                                           \ '-I/usr/include',
                                           \ '-I/home/dphan/ROOT/install_dev/include',
                                           \ '-I/home/dphan/ROOT/install/include',
-                                          \ '-I/home/dphan/Geant4/install/include/Geant4']}
+                                          \ '-I/home/dphan/Geant4/install-11.00-release/include/Geant4']}
   let g:neomake_cpp_enabled_makers = ['gcc']
   let g:neomake_cpp_gcc_maker =   { 'args': [
                                             \ '-Wall',
@@ -25,7 +25,7 @@ function! myspacevim#before() abort
                                             \ '-I/home/dphan/ROOT/install/include',
                                             \ '-I/home/dphan/ROOT/install_dev/include',
                                             \ '-I/home/dphan/ROOT/install/include/Math',
-                                            \ '-I/home/dphan/Geant4/install/include/Geant4']}
+                                            \ '-I/home/dphan/Geant4/install-11.00-release/include/Geant4']}
   
   " YCM keybinds
   " For C++

@@ -57,6 +57,7 @@ enable_guicolors = false
 wrap_line = true
 buffer_index_type = 4
 escape_key_binding = 'fj'
+lint_on_save = false
 enable_ycm = true 
 enable_statusline_bfpath = true
 bootstrap_before = 'myspacevim#before'
