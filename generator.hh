@@ -13,6 +13,7 @@
 #include "G4String.hh"
 
 #include "TMath.h"
+#include "TString.h"
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:

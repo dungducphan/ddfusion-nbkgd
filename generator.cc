@@ -60,6 +60,8 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
                                                                    1.5 * MeV);
     fGeneralParticleSource->GetCurrentSource()->SetParticleDefinition(exDIon);
   }
+  G4int evtNo = anEvent->GetEventID();
+  if (evtNo % 1000) G4cout << Form("Event number %08i.", evtNo) << G4endl;
   fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
 
   // if (man == nullptr) man = G4AnalysisManager::Instance();
