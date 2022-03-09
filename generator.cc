@@ -31,17 +31,18 @@ MyPrimaryGenerator::MyPrimaryGenerator() {
                                                  G4ThreeVector(1, 0, 0));
   exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
                                                  G4ThreeVector(1, 1, 0));
-  /*
+  
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
-  */
-
+  
+/*
   exDeuteriumIon->GetAngDist()->SetMinTheta(0. - 0.015);
   exDeuteriumIon->GetAngDist()->SetMaxTheta(0. + 0.015);
   exDeuteriumIon->GetAngDist()->SetMinPhi(TMath::Pi() / 2. - 0.015);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() / 2. + 0.015);
+*/
 
   exDeuteriumIon->GetEneDist()->SetEnergyDisType(
       "Exp"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse
@@ -61,7 +62,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
     fGeneralParticleSource->GetCurrentSource()->SetParticleDefinition(exDIon);
   }
   G4int evtNo = anEvent->GetEventID();
-  if (evtNo % 1000) G4cout << Form("Event number %08i.", evtNo) << G4endl;
+  if (evtNo % 20000 == 0) G4cout << Form("Event number %08i.", evtNo) << G4endl;
   fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
 
   // if (man == nullptr) man = G4AnalysisManager::Instance();
