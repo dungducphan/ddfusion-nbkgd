@@ -38,6 +38,7 @@ int main(int argc, char **argv) {
         G4String fileName = argv[1];
         uiManager->ApplyCommand(command + fileName);
     } else {
+        runManager->Initialize();
         G4String command = "/control/execute ";
         uiManager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
