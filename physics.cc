@@ -1,4 +1,5 @@
 #include "physics.hh"
+#include "extraPhysics.hh"
 
 MyPhysicsList::MyPhysicsList()
 :G4VModularPhysicsList()
@@ -29,6 +30,7 @@ MyPhysicsList::MyPhysicsList()
   RegisterPhysics( new G4HadronPhysicsFTFP_BERT(verb));
   RegisterPhysics( new G4HadronInelasticQBBC(verb));
   RegisterPhysics( new G4HadronPhysicsINCLXX(verb));
+  RegisterPhysics( new extraPhysics(verb));
 
   // Ion Elastic scattering
   RegisterPhysics( new G4IonElasticPhysics(verb));
