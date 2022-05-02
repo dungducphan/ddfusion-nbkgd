@@ -18,11 +18,10 @@
 
 class MyPrimaryGenerator : public G4VUserPrimaryGeneratorAction {
 public:
-  MyPrimaryGenerator();
+  MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>> gunEne);
   ~MyPrimaryGenerator() override;
 
   void GeneratePrimaries(G4Event* anEvent) override;
-  void SetEnergySpectrum(G4SingleParticleSource* sps);
 
 private:
   G4GeneralParticleSource *fGeneralParticleSource = nullptr;

@@ -3,15 +3,14 @@
 MyPhysicsList::MyPhysicsList()
 :G4VModularPhysicsList()
 {
-  // G4int verb = 2;
   G4int verb = 0;
   SetVerboseLevel(verb);
 
   // Mandatory for G4NuclideTable
   // Half-life threshold must be set small or many short-lived isomers 
   // will not be assigned life times (default to 0) 
-  G4NuclideTable::GetInstance()->SetThresholdOfHalfLife(0.1*picosecond);
-  G4NuclideTable::GetInstance()->SetLevelTolerance(1.0*eV);
+  G4NuclideTable::GetInstance()->SetThresholdOfHalfLife(1*picosecond);
+  G4NuclideTable::GetInstance()->SetLevelTolerance(1*eV);
           
   // EM physics
   RegisterPhysics(new G4EmStandardPhysics());
@@ -28,20 +27,20 @@ MyPhysicsList::MyPhysicsList()
   
   // Hadron Inelastic physics
   RegisterPhysics( new G4HadronPhysicsFTFP_BERT(verb));
-  ////RegisterPhysics( new G4HadronInelasticQBBC(verb));        
-  ////RegisterPhysics( new G4HadronPhysicsINCLXX(verb));
-  
+  RegisterPhysics( new G4HadronInelasticQBBC(verb));
+  RegisterPhysics( new G4HadronPhysicsINCLXX(verb));
+
   // Ion Elastic scattering
   RegisterPhysics( new G4IonElasticPhysics(verb));
       
   // Ion Inelastic physics
   RegisterPhysics( new G4IonPhysics(verb));
-  ////RegisterPhysics( new G4IonINCLXXPhysics(verb));
+  RegisterPhysics( new G4IonINCLXXPhysics(verb));
     
   // Gamma-Nuclear Physics
   G4EmExtraPhysics* gnuc = new G4EmExtraPhysics(verb);
-  gnuc->ElectroNuclear(false);
-  gnuc->MuonNuclear(false);
+  gnuc->ElectroNuclear(true);
+  gnuc->MuonNuclear(true);
   RegisterPhysics(gnuc);
 }
 

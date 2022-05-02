@@ -26,7 +26,17 @@ int main(int argc, char **argv) {
 
     runManager->SetUserInitialization(new MyDetectorConstruction());
     runManager->SetUserInitialization(new MyPhysicsList());
-    runManager->SetUserInitialization(new MyActionInitialization());
+
+    std::vector<std::pair<G4double, G4double>> gunEne;
+    std::ifstream inSpec("./DSpec_fake.csv");
+    double e_tmp;
+    double flux_tmp;
+    while (inSpec >> e_tmp >> flux_tmp) {
+        std::cout << e_tmp << flux_tmp << std::endl;
+        gunEne.push_back(std::make_pair(e_tmp, flux_tmp));
+    }
+    inSpec.close();
+    runManager->SetUserInitialization(new MyActionInitialization(gunEne));
 
     G4VisManager *visManager = new G4VisExecutive();
     visManager->Initialize();

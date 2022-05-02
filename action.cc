@@ -1,6 +1,7 @@
 #include "action.hh"
 
-MyActionInitialization::MyActionInitialization() {
+MyActionInitialization::MyActionInitialization(std::vector<std::pair<G4double, G4double>> gunEne) {
+    gunEneDist = gunEne;
 }
 
 MyActionInitialization::~MyActionInitialization() {
@@ -8,7 +9,7 @@ MyActionInitialization::~MyActionInitialization() {
 
 void MyActionInitialization::Build() const {
   SetUserAction(new MyRunAction());
-  SetUserAction(new MyPrimaryGenerator());
+  SetUserAction(new MyPrimaryGenerator(gunEneDist));
 }
 
 void MyActionInitialization::BuildForMaster() const {
