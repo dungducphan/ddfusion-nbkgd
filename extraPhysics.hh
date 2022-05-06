@@ -2,8 +2,8 @@
 // Created by dphan on 5/2/22.
 //
 
-#ifndef DDFUSION_NBKGD_EXTRAPHYSICS_HH
-#define DDFUSION_NBKGD_EXTRAPHYSICS_HH
+#ifndef DDFUSION_NBKGD_EXTRAPHYSICS_HH_BKUP
+#define DDFUSION_NBKGD_EXTRAPHYSICS_HH_BKUP
 
 #include "globals.hh"
 #include "G4VPhysicsConstructor.hh"
@@ -28,4 +28,4 @@ private:
     G4int    verbose;
 };
 
-#endif //DDFUSION_NBKGD_EXTRAPHYSICS_HH
+#endif //DDFUSION_NBKGD_EXTRAPHYSICS_HH_BKUP

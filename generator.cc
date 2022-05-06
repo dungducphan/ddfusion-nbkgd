@@ -45,17 +45,16 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
   exDeuteriumIon->GetAngDist()->SetMinPhi(0);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
 
-//  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
-//  exDeuteriumIon->GetEneDist()->SetMonoEnergy(6 * MeV);
-//  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.5 * MeV);
-//  // exDeuteriumIon->GetEneDist()->SetEzero(4.343 * MeV); // I~Exp(-E/E0)
+  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
+  exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.2 * MeV);
+  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
 
-  exDeuteriumIon->GetEneDist()->SetEnergyDisType("User");
-  for (int i = 0; i < gunEne.size(); i++) {
-      G4double ehi = std::get<0>(gunEne.at(i));
-      G4double val = std::get<1>(gunEne.at(i));
-      exDeuteriumIon->GetEneDist()->UserEnergyHisto(G4ThreeVector(ehi, val, 0));
-  }
+//  exDeuteriumIon->GetEneDist()->SetEnergyDisType("User");
+//  for (int i = 0; i < gunEne.size(); i++) {
+//      G4double ehi = std::get<0>(gunEne.at(i));
+//      G4double val = std::get<1>(gunEne.at(i));
+//      exDeuteriumIon->GetEneDist()->UserEnergyHisto(G4ThreeVector(ehi, val, 0));
+//  }
   // ------------------------------------------------------------------------------------------------------------------------
 }
 
