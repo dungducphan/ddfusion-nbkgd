@@ -6,15 +6,19 @@
 #define DDFUSION_NBKGD_DBE9PROC_HH
 
 
-#include "G4VProcess.hh"
+#include "G4VDiscreteProcess.hh"
+#include "G4Deuteron.hh"
+#include "G4SystemOfUnits.hh"
+#include "G4Neutron.hh"
+#include "TMath.h"
 
-class dbe9proc : public G4VProcess  {
+class dbe9proc : public G4VDiscreteProcess  {
 public:
     //  Constructors
     explicit dbe9proc(const G4String& processName = "DeuteriumBreakUp");
 
     //  Destructor
-    virtual ~dbe9proc();
+    ~dbe9proc() override;
 
 private:
     //  copy constructor
@@ -23,33 +27,27 @@ private:
     //  Assignment Operation (generated)
     dbe9proc & operator=(const dbe9proc &right);
 
+    G4double fCurrentSigma;    // the last value of cross section per volume
+
 
 public: // With Description
-    // G4Decay Process has both
-    // PostStepDoIt (for decay in flight)
-    //   and
-    // AtRestDoIt (for decay at rest)
 
     virtual G4VParticleChange *PostStepDoIt(
             const G4Track& aTrack,
             const G4Step& aStep
     ) override;
 
-    virtual G4VParticleChange* AtRestDoIt(
-            const G4Track& aTrack,
-            const G4Step&  aStep
-    ) override;
-
     virtual void BuildPhysicsTable(const G4ParticleDefinition&) override;
-    // In G4Decay, thePhysicsTable stores values of
-    //    beta * std::sqrt( 1 - beta*beta)
-    //  as a function of normalized kinetic enregy (=Ekin/mass),
-    //  becasuse this table is universal for all particle types,
+    // dummy
 
+    G4double ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyInMeV);
+    G4double CrossSectionPerVolume(G4double energy, const G4Material* aMaterial);
+    G4double GetMeanFreePath(const G4Track& aTrack,
+                             G4double previousStepSize,
+                             G4ForceCondition* ) override;
 
     virtual G4bool IsApplicable(const G4ParticleDefinition&) override;
-    // returns "true" if the decay process can be applied to
-    // the particle type.
+    // returns "true" if the particle involved is deuteron
 };
 
 

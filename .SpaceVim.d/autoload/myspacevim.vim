@@ -4,8 +4,8 @@ function! myspacevim#before() abort
   " Neomake C/C++ config 
   let g:neomake_c_enabled_makers = ['gcc']
   let g:neomake_c_gcc_maker = { 'args': [ 
-                                          \ '-Wall', 
-                                          \ '-Wextra', 
+                                          \ '-Wall',
+                                          \ '-Wextra',
                                           \ '-Weverything',
                                           \ '-pedantic'],
                               \ 'includes': [
@@ -21,7 +21,7 @@ function! myspacevim#before() abort
                                             \ '-pedantic',
                                             \ '-Wno-sign-conversion'],
                                   \ 'includes': [
-                                            \ '-I/usr/include',                  
+                                            \ '-I/usr/include',
                                             \ '-I/home/dphan/ROOT/install/include',
                                             \ '-I/home/dphan/ROOT/install_dev/include',
                                             \ '-I/home/dphan/ROOT/install/include/Math',
