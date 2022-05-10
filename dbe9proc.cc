@@ -79,8 +79,14 @@ G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyIn
 //    }
 
     // TODO: this function below is the cross-section in term of E_cm from Ou, use it for production
-    G4double sig = -0.426331 + 0.862892*x - 0.297566*x*x + 0.0524488*x*x*x - 0.00422005*x*x*x*x + 0.000120617*x*x*x*x*x;
-    return sig * barn;
+    if (x < 0.7 || x > 12.8) {
+        return 0;
+    } else {
+        G4double sig =
+                -0.426331 + 0.862892 * x - 0.297566 * x * x + 0.0524488 * x * x * x - 0.00422005 * x * x * x * x +
+                0.000120617 * x * x * x * x * x;
+        return sig * barn;
+    }
 }
 
 G4double dbe9proc::CrossSectionPerVolume(G4double energyInMeV, const G4Material *aMaterial) {
