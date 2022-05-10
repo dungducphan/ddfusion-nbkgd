@@ -11,6 +11,7 @@
 #include "G4SystemOfUnits.hh"
 #include "G4Neutron.hh"
 #include "TMath.h"
+#include "TLorentzVector.h"
 
 class dbe9proc : public G4VDiscreteProcess  {
 public:
@@ -28,6 +29,7 @@ private:
     dbe9proc & operator=(const dbe9proc &right);
 
     G4double fCurrentSigma;    // the last value of cross section per volume
+    G4double fEnergyTransfer; // TODO: implement the energy transfer (epsilon) to the model
 
 
 public: // With Description
@@ -46,8 +48,10 @@ public: // With Description
                              G4double previousStepSize,
                              G4ForceCondition* ) override;
 
+    G4ThreeVector NeutronUnitMomentumSolver(const G4Track& aDeuteronTrack);
+    G4double NeutronKineticEnergySolver(const G4Track& aDeuteronTrack, const G4ThreeVector& aNeutronUnitMomentum);
+
     virtual G4bool IsApplicable(const G4ParticleDefinition&) override;
-    // returns "true" if the particle involved is deuteron
 };
 
 

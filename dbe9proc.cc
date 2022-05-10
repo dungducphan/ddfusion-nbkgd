@@ -10,7 +10,7 @@ dbe9proc::dbe9proc(const G4String &processName) : G4VDiscreteProcess(processName
 }
 
 G4bool dbe9proc::IsApplicable(const G4ParticleDefinition &aParticleType) {
-    // FIXME: check if the particle is Deuteron?
+    // Apply this model to deuteron only
     return &aParticleType == G4Deuteron::Deuteron();
 
 }
@@ -25,38 +25,28 @@ dbe9proc::~dbe9proc() {
 G4VParticleChange *dbe9proc::PostStepDoIt(const G4Track &aTrack, const G4Step &aStep) {
     aParticleChange.Initialize(aTrack);
 
-    // current Positron energy and direction, return if energy too low
+    // current positron energy and direction, return if energy too low
     const G4DynamicParticle *aDynamicDeuterium = aTrack.GetDynamicParticle();
-    G4double Edeu = aDynamicDeuterium->GetTotalEnergy();
+    // FIXME: is this supposed to be total energy or kinetic energy?
+    G4double Edeu = aDynamicDeuterium->GetKineticEnergy();
+    G4cout << Edeu / MeV << G4endl;
     G4double totXs = CrossSectionPerVolume(Edeu, aTrack.GetMaterial());
 
-    // test of cross section
+    // test of cross-section
     if (totXs > 0.0 && fCurrentSigma*G4UniformRand() > totXs) {
         return G4VDiscreteProcess::PostStepDoIt(aTrack,aStep); // just reset NumberOfInteractionLengthLeft
     }
 
-    // interaction descriptions
-
     // care only about neutron, don't worry about X or the break-up proton
     aParticleChange.SetNumberOfSecondaries(1);
 
-    // TODO: generate fake energy spectrum, redo calculations with Ou/Lance and implement the calculation here
-    // CALCULATION START
-    // 1. G4ThreeVector MuPlusDirection.
-    // 2. G4double
-    // CALCULATION END
-
-    // FIXME: fake calculations
-    G4ParticleDefinition* genNeutronDef = G4Neutron::Definition();
-    G4double NeutronEnergy = 5 * MeV;
-    // FIXME: Isotropic neutron momentum, maybe good enough, need not to change?
-    G4double theta = TMath::Pi()*G4UniformRand();
-    G4double phi = TMath::TwoPi()*G4UniformRand();
-    G4ThreeVector NeutronDirection(TMath::Sin(theta)*TMath::Cos(phi), TMath::Sin(theta)*TMath::Sin(phi), TMath::Cos(theta));
-    // FIXME: END
+    // Solve for neutron unit momentum and kinetic energy (in lab frame, of course)
+    G4ThreeVector Neutron_LF_UnitMomentum = NeutronUnitMomentumSolver(aTrack);
+    // TODO:
+    G4double Neutron_LF_KEnergy = 0;
 
     // create G4DynamicParticle object for the generated neutron
-    G4DynamicParticle* aNeutron = new G4DynamicParticle(genNeutronDef, NeutronDirection, NeutronEnergy);
+    G4DynamicParticle* aNeutron = new G4DynamicParticle(G4Neutron::Definition(), Neutron_LF_UnitMomentum, Neutron_LF_KEnergy);
     aParticleChange.AddSecondary(aNeutron);
 
     // Kill the incident deuteron
@@ -69,16 +59,7 @@ G4VParticleChange *dbe9proc::PostStepDoIt(const G4Track &aTrack, const G4Step &a
 G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyInMeV) {
     G4double x = energyInMeV/MeV;
 
-//    // FIXME: faking a delta function cross-section to make sure that the code work first
-//    if (x < 10 || x > 15) {
-//        return 0 * barn;
-//    } else {
-//    // FIXME: Testing. Remove once done!
-//        // G4cout << "Calculating the cross-section for 'new' physics." << G4endl;
-//        return 10 * barn;
-//    }
-
-    // TODO: this function below is the cross-section in term of E_cm from Ou, use it for production
+    // Apply cut to avoid unphysical xsec values
     if (x < 0.7 || x > 12.8) {
         return 0;
     } else {
@@ -90,10 +71,6 @@ G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyIn
 }
 
 G4double dbe9proc::CrossSectionPerVolume(G4double energyInMeV, const G4Material *aMaterial) {
-//    FIXME: Apply the D-Be9 for any material, which is wrong. For testing purpose only.
-//    return ComputeCrossSectionPerDeuteronBe9Pair(energyInMeV) * aMaterial->GetTotNbOfAtomsPerVolume();
-//    TODO: check here as well, ideally we just want D interacts with Be9. Also, need to scale the
-//          x-sec by the nuclei density of the material.
     if (aMaterial->GetName() != "G4_Be") return 0;
     else {
         // G4cout << "Calculating the cross-section for 'new' physics." << G4endl;
@@ -111,4 +88,32 @@ G4double dbe9proc::GetMeanFreePath(const G4Track &aTrack, G4double previousStepS
 
     // increase the CrossSection by CrossSecFactor (default 1)
     return (fCurrentSigma > 0.0) ? 1.0/fCurrentSigma : DBL_MAX;
+}
+
+G4ThreeVector dbe9proc::NeutronUnitMomentumSolver(const G4Track &aTrack) {
+    G4LorentzVector P4deu = aTrack.GetDynamicParticle()->Get4Momentum();
+
+    // First, pick a random unit vector in CoM frame for neutron momentum
+    G4double theta = TMath::Pi()*G4UniformRand();
+    G4double phi = TMath::TwoPi()*G4UniformRand();
+    G4double energy = TMath::Sqrt(TMath::Power(G4Neutron::Definition()->GetPDGMass(), 2) + 100);
+    TLorentzVector Neutron_CM;
+    Neutron_CM.SetPxPyPzE(TMath::Sin(theta)*TMath::Cos(phi), TMath::Sin(theta)*TMath::Sin(phi), TMath::Cos(theta), energy * MeV);
+
+    // Calculate the boost vector
+    TLorentzVector Deuteron_LF;
+    G4double deuteronMomentum = 5;
+    Deuteron_LF.SetPxPyPzE(P4deu.px(), P4deu.py(), P4deu.pz(), P4deu.e());
+    TVector3 BoostingVector = Deuteron_LF.BoostVector();
+
+    // Apply boost to find neutron unit momentum in the lab frame
+    TLorentzVector Neutron_LF = Neutron_CM;
+    Neutron_LF.Boost(-BoostingVector);
+
+    return G4ThreeVector(Neutron_LF.Px() / Neutron_LF.P(), Neutron_LF.Py() / Neutron_LF.P(), Neutron_LF.Pz() / Neutron_LF.P());
+}
+
+G4double dbe9proc::NeutronKineticEnergySolver(const G4Track &aDeuteronTrack, const G4ThreeVector &aNeutronUnitMomentum) {
+    // TODO: Implement the energy solver here
+    return 0;
 }
