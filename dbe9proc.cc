@@ -62,11 +62,11 @@ G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyIn
     //
     // faking a delta function cross-section to make sure that the code work first
     if (x < 10 || x > 15) {
-        return 0;
+        return 0 * barn;
     } else {
     // FIXME: Testing. Remove once done!
-        G4cout << "Calculating the cross-section for 'new' physics." << G4endl;
-        return 1E10;
+        // G4cout << "Calculating the cross-section for 'new' physics." << G4endl;
+        return 10 * barn;
     }
 
     // TODO: this function below is the cross-section in term of E_cm from Ou, use it for production
@@ -75,8 +75,9 @@ G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(const G4double energyIn
 
 G4double dbe9proc::CrossSectionPerVolume(G4double energyInMeV, const G4Material *aMaterial) {
 //    FIXME: Apply the D-Be9 for any material, which is wrong. For testing purpose only.
-    return ComputeCrossSectionPerDeuteronBe9Pair(energyInMeV);
-//        TODO: check here as well, ideally we just want D insteracts with Be9
+    return ComputeCrossSectionPerDeuteronBe9Pair(energyInMeV) * aMaterial->GetTotNbOfAtomsPerVolume();
+//    TODO: check here as well, ideally we just want D interacts with Be9. Also, need to scale the
+//          x-sec by the nuclei density of the material.
 //    if (aMaterial->GetName() != "G4_Be") return 0;
 //    else {
 //        return ComputeCrossSectionPerDeuteronBe9Pair(energyInMeV);
