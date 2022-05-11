@@ -11,8 +11,9 @@
 class extraPhysics : public G4VPhysicsConstructor
 {
 public:
-    explicit extraPhysics(G4int ver = 1);
-    explicit extraPhysics(const G4String& name, G4int ver = 1);
+    extraPhysics(G4int ver = 1);
+    extraPhysics(const G4String& name, G4int ver = 1);
+    extraPhysics(const G4String& name, G4double eTransfer, G4int ver = 1);
     ~extraPhysics() override;
 
     // This method will be invoked in the Construct() method.
@@ -24,8 +25,12 @@ public:
     // registered to the process manager of each particle type
     void ConstructProcess() override;
 
+    void SetEnergyTransfer(G4double eTransfer);
+    G4double GetEnergyTransfer() const;
+
 private:
     G4int    verbose;
+    G4double fEnergyTransfer;
 };
 
 #endif //DDFUSION_NBKGD_EXTRAPHYSICS_HH_BKUP

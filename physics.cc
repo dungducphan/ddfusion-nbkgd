@@ -29,8 +29,8 @@ MyPhysicsList::MyPhysicsList()
   // Hadron Inelastic physics
 //  RegisterPhysics(new G4HadronPhysicsFTFP_BERT(verb));
 //  RegisterPhysics(new G4HadronInelasticQBBC(verb));
-  RegisterPhysics(new G4HadronPhysicsINCLXX("INCLHADINELAS", true, true, false));
-    RegisterPhysics(new extraPhysics(3));
+//  RegisterPhysics(new G4HadronPhysicsINCLXX("INCLHADINELAS", true, true, false));
+  RegisterPhysics(new extraPhysics("extraPhysics", 3.0 * MeV, 3));
 
   // Ion Elastic scattering
   RegisterPhysics( new G4IonElasticPhysics(verb));

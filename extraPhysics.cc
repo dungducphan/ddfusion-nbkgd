@@ -16,6 +16,10 @@ extraPhysics::extraPhysics(const G4String &name, G4int ver) : G4VPhysicsConstruc
     SetPhysicsType(bUnknown);
 }
 
+extraPhysics::extraPhysics(const G4String &name, G4double eTransfer,  G4int ver) : G4VPhysicsConstructor(name), fEnergyTransfer(eTransfer), verbose(ver) {
+    SetPhysicsType(bUnknown);
+}
+
 extraPhysics::~extraPhysics() {
 }
 
@@ -28,7 +32,7 @@ void extraPhysics::ConstructProcess() {
     G4PhysicsListHelper* ph = G4PhysicsListHelper::GetPhysicsListHelper();
 
     // Add D-Be9 process
-    dbe9proc* proc = new dbe9proc();
+    dbe9proc* proc = new dbe9proc(fEnergyTransfer);
     auto myParticleIterator = GetParticleIterator();
     myParticleIterator->reset();
     G4ParticleDefinition* particle = 0;
@@ -43,3 +47,13 @@ void extraPhysics::ConstructProcess() {
         }
     }
 }
+
+void extraPhysics::SetEnergyTransfer(G4double eTransfer) {
+    fEnergyTransfer = eTransfer;
+}
+
+G4double extraPhysics::GetEnergyTransfer() const {
+    return fEnergyTransfer;
+}
+
+
