@@ -41,7 +41,9 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
 */
   exDeuteriumIon->GetAngDist()->SetMinTheta(0);
-  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4());
+  // FIXME
+//  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/3.);
+  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/20.);
   exDeuteriumIon->GetAngDist()->SetMinPhi(0);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
 
@@ -66,7 +68,7 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
       G4ParticleTable::GetParticleTable()->FindParticle("e-")) {
     G4ParticleDefinition *exDIon =
         G4ParticleTable::GetParticleTable()->GetIonTable()->GetIon(1, 2,
-                                                                   2.5 * MeV);
+                                                                   3 * MeV);
     fGeneralParticleSource->GetCurrentSource()->SetParticleDefinition(exDIon);
   }
 

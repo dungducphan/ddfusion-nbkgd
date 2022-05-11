@@ -28,7 +28,7 @@ int main(int argc, char **argv) {
     runManager->SetUserInitialization(new MyPhysicsList());
 
     std::vector<std::pair<G4double, G4double>> gunEne;
-    std::ifstream inSpec("./DSpec.csv");
+    std::ifstream inSpec("./DSpec_fake.csv");
     double e_tmp;
     double flux_tmp;
     while (inSpec >> e_tmp >> flux_tmp) {
