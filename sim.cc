@@ -49,7 +49,6 @@ int main(int argc, char **argv) {
         uiManager->ApplyCommand(command + fileName);
     } else {
         runManager->Initialize();
-        G4String command = "/control/execute ";
         uiManager->ApplyCommand("/control/execute vis.mac");
         ui->SessionStart();
         delete ui;

@@ -15,6 +15,7 @@ MyRunAction::MyRunAction() : G4UserRunAction() {
     man->CreateNtupleDColumn("Z");
     man->CreateNtupleDColumn("T");
     man->CreateNtupleDColumn("procID");
+    man->CreateNtupleDColumn("detID");
     man->FinishNtuple(0);
 }
 

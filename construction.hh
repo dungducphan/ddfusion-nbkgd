@@ -14,8 +14,10 @@
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
 #include "G4SDManager.hh"
+#include "G4GenericMessenger.hh"
 
 #include "TMath.h"
+#include "TString.h"
 
 #include "neutronsd.hh"
 
@@ -26,4 +28,7 @@ public:
 
   virtual G4VPhysicalVolume* Construct();
   virtual void ConstructSDandField();
+
+  G4GenericMessenger *mMessenger;
+  G4bool mBeFlag;
 };

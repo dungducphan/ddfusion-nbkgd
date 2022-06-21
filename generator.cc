@@ -42,6 +42,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
 */
 
+
   // Deuteron beam source
   exDeuteriumIon->GetAngDist()->SetMinTheta(0);
   exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/20.);

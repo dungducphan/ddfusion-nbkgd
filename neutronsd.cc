@@ -13,9 +13,26 @@ G4bool NeutronSD::ProcessHits(G4Step * aStep, G4TouchableHistory *) {
   }
 
   G4StepPoint *prePoint = aStep->GetPreStepPoint();
-  // G4cout << "Neutron produced by: " << track->GetCreatorProcess()->GetProcessName() << " in " << track->GetOriginTouchable()->GetVolume()->GetName() << G4endl;
   auto processName = track->GetCreatorProcess()->GetProcessName();
   auto volumeName = track->GetOriginTouchable()->GetVolume()->GetName();
+
+  int SensitiveDetectorID = 0;
+  if (prePoint->GetPhysicalVolume()->GetName() == "physSD_000") {
+      SensitiveDetectorID = 0;
+  } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_001") {
+      SensitiveDetectorID = 1;
+  } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_002") {
+      SensitiveDetectorID = 2;
+  } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_003") {
+      SensitiveDetectorID = 3;
+  } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_004") {
+      SensitiveDetectorID = 4;
+  } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_005") {
+      SensitiveDetectorID = 5;
+  } else {
+      SensitiveDetectorID = -1;
+  }
+
   G4int parentProcessID = 0;
   if (processName == "ionInelastic") {
     parentProcessID = 1;
@@ -24,6 +41,8 @@ G4bool NeutronSD::ProcessHits(G4Step * aStep, G4TouchableHistory *) {
   } else {
     parentProcessID = 4;
   }
+
+  G4cout << "Neutron hit detID " << SensitiveDetectorID << "." << G4endl;
 
   G4double energy = prePoint->GetKineticEnergy();
   G4double x_hit = prePoint->GetPosition().getX();
@@ -38,6 +57,7 @@ G4bool NeutronSD::ProcessHits(G4Step * aStep, G4TouchableHistory *) {
   man->FillNtupleDColumn(3, z_hit / m);
   man->FillNtupleDColumn(4, t_hit / ns);
   man->FillNtupleDColumn(5, parentProcessID);
+  man->FillNtupleDColumn(6, SensitiveDetectorID);
   man->AddNtupleRow(0);
 
   track->SetTrackStatus(fStopAndKill);
