@@ -11,7 +11,7 @@ G4VPhysicalVolume* MyDetectorConstruction::Construct() {
   G4NistManager * nist = G4NistManager::Instance();
 
   // // World material
-  G4Material * worldMat = nist->FindOrBuildMaterial("G4_AIR");
+  G4Material * worldMat = nist->FindOrBuildMaterial("G4_Galactic");
 
   // // Be-converter material
   G4Material * beConverterMat = nist->FindOrBuildMaterial("G4_Be");

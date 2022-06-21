@@ -35,22 +35,27 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
   exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
                                                  G4ThreeVector(1, 1, 0));
 /*
+    // Isotropic deuteron source
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
 */
+
+  // Deuteron beam source
   exDeuteriumIon->GetAngDist()->SetMinTheta(0);
-  // FIXME
-//  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/3.);
   exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/20.);
   exDeuteriumIon->GetAngDist()->SetMinPhi(0);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
 
-//  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
-//  exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.2 * MeV);
-//  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
+/*
+ * Gaussian energy distribution
+    //  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
+    //  exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.2 * MeV);
+    //  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
+*/
 
+  // Realistic energy distribution from Thompson-Parabolla Spectrometer
   exDeuteriumIon->GetEneDist()->SetEnergyDisType("User");
   for (int i = 0; i < gunEne.size(); i++) {
       G4double ehi = std::get<0>(gunEne.at(i));
@@ -78,8 +83,4 @@ void MyPrimaryGenerator::GeneratePrimaries(G4Event *anEvent) {
 
   // Generate primary vertex here
   fGeneralParticleSource->GeneratePrimaryVertex(anEvent);
-
-//   if (man == nullptr) man = G4AnalysisManager::Instance();
-//   man->FillNtupleDColumn(0, fGeneralParticleSource->GetParticleEnergy());
-//   man->AddNtupleRow(0);
 }

@@ -41,9 +41,9 @@ G4VParticleChange *dbe9proc::PostStepDoIt(const G4Track &aTrack, const G4Step &a
     // Solve for neutron unit momentum and kinetic energy (in lab frame, of course)
     G4ThreeVector Neutron_LF_UnitMomentum = NeutronUnitMomentumSolver(aTrack);
     // FIXME:
-    G4double Neutron_LF_KEnergy = 100 * MeV;
+//    G4double Neutron_LF_KEnergy = 100 * MeV;
 //    G4double Neutron_LF_KEnergy = NeutronKineticEnergySolver(aTrack, Neutron_LF_UnitMomentum) + 50 * MeV;
-//    G4double Neutron_LF_KEnergy = NeutronKineticEnergySolverSimple(aTrack) + 50 * MeV;
+    G4double Neutron_LF_KEnergy = NeutronKineticEnergySolverSimple(aTrack) + 50 * MeV;
 
     // create G4DynamicParticle object for the generated neutron
     auto* aNeutron = new G4DynamicParticle(G4Neutron::Definition(), Neutron_LF_UnitMomentum, Neutron_LF_KEnergy);
@@ -60,26 +60,22 @@ G4double dbe9proc::ComputeCrossSectionPerDeuteronBe9Pair(G4double energyInMeV) {
     G4double x = energyInMeV/MeV;
 
     // Apply cut to avoid unphysical xsec values
-//    if (x <= 0 || x >= 13) {
-//        return 0 * barn;
-//    } else {
-//        G4double sig =
-//                -0.426331 + 0.862892 * x - 0.297566 * x * x + 0.0524488 * x * x * x - 0.00422005 * x * x * x * x +
-//                0.000120617 * x * x * x * x * x;
-//        return sig > 0 ? sig * 100 * barn : 0;
-//    }
-
-    if (x < 0 || x > 55) {
+    // Here the cross-section is scaled to 100. The signal is only visible when this scaling is applied.
+    // Otherwise, it's negligible!
+    if (x <= 0 || x >= 13) {
         return 0 * barn;
     } else {
-        return 1 * barn;
+        G4double sig =
+                -0.426331 + 0.862892 * x - 0.297566 * x * x + 0.0524488 * x * x * x - 0.00422005 * x * x * x * x +
+                0.000120617 * x * x * x * x * x;
+        return sig > 0 ? sig * 100 * barn : 0;
     }
 }
 
 G4double dbe9proc::CrossSectionPerVolume(G4double energyInMeV, const G4Material *aMaterial) {
+    // Apply this process on Be volume only
     if (aMaterial->GetName() != "G4_Be") return 0;
     else {
-//        G4cout << aMaterial->GetTotNbOfAtomsPerVolume() * m3 << G4endl;
         return ComputeCrossSectionPerDeuteronBe9Pair(energyInMeV) * aMaterial->GetTotNbOfAtomsPerVolume();
     }
 }
