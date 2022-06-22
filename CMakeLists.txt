@@ -7,9 +7,10 @@ find_package(ROOT REQUIRED Core)
 
 include(${Geant4_USE_FILE})
 include(${ROOT_USE_FILE})
+include_directories(${PROJECT_SOURCE_DIR}/inc)
 
-file(GLOB sources ${PROJECT_SOURCE_DIR}/*.cc)
-file(GLOB headers ${PROJECT_SOURCE_DIR}/*.hh)
+file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
+file(GLOB headers ${PROJECT_SOURCE_DIR}/inc/*.hh)
 
 file(GLOB MACROS "*.mac" "NeutronAna.h" "Ana.C" "excitationEnergyScan.sh" "*.csv")
 
