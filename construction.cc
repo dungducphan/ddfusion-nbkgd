@@ -50,6 +50,12 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
     const G4Transform3D tc1_transform3D = G4Transform3D(G4RotationMatrix(u, v, w), G4ThreeVector(0., 0., 0.));
     new G4PVPlacement(tc1_transform3D, logicTC1, "physTC1", logicWorld, false, 0, true);
 
+    // Optical table
+    G4Tubs *solidOpTable = new G4Tubs("solidOpTable", 0, 0.95 * m, 0.5 * cm, 0, 2 * TMath::Pi());
+    G4LogicalVolume *logicOpTable = new G4LogicalVolume(solidOpTable, aluminumMat, "logicOpTable");
+    G4RotationMatrix *rotMatOpTable = new G4RotationMatrix(0, TMath::Pi() / 2, 0);
+    new G4PVPlacement(rotMatOpTable, G4ThreeVector(0., -10. * cm, 0.), logicOpTable, "physOpTable", logicWorld, false, 0,true);
+
     // // Sensitive Detector
     // Dimension info from BTI: https://bubbletech.ca/product/bdt/
     G4Tubs *solidSD = new G4Tubs("solidSD", 0, 4.5 * mm, 72.5 * mm, 0, TMath::TwoPi());

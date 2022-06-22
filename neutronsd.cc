@@ -35,14 +35,14 @@ G4bool NeutronSD::ProcessHits(G4Step * aStep, G4TouchableHistory *) {
 
   G4int parentProcessID = 0;
   if (processName == "ionInelastic") {
-    parentProcessID = 1;
+    parentProcessID = volumeName == "physBeConverter" ? 1 : 2;
   } else if (processName == "neutronInelastic") {
-    parentProcessID = volumeName == "physBeConverter" ? 2 : 3;
+    parentProcessID = volumeName == "physBeConverter" ? 3 : 4;
   } else {
-    parentProcessID = 4;
+    parentProcessID = 5;
   }
 
-  G4cout << "Neutron hit detID " << SensitiveDetectorID << "." << G4endl;
+//  G4cout << "Neutron hit detID " << SensitiveDetectorID << "." << G4endl;
 
   G4double energy = prePoint->GetKineticEnergy();
   G4double x_hit = prePoint->GetPosition().getX();

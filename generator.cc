@@ -45,9 +45,10 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
 
   // Deuteron beam source
   exDeuteriumIon->GetAngDist()->SetMinTheta(0);
-  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver4()/20.);
+  exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2()/6);
   exDeuteriumIon->GetAngDist()->SetMinPhi(0);
   exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
+
 
 /*
  * Gaussian energy distribution
