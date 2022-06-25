@@ -70,6 +70,7 @@ G4VPhysicalVolume *MyDetectorConstruction::Construct() {
         new G4PVPlacement(rotMat, G4ThreeVector(xi, 0., zi), logicSD, Form("physSD_%03i", i), logicWorld, false, i,
                           true);
     }
+    new G4PVPlacement(rotMat, G4ThreeVector(0, 1.10 * m, 0.), logicSD, Form("physSD_%03i", 6), logicWorld, false, 6, true);
 
     return physWorld;
 }
