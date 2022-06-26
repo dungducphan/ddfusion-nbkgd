@@ -11,10 +11,10 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     // Initiate the particles as electrons
     // Re-define them as D-ion later (there are some issue with GenericIon is not ready at this stage of initialization).
     G4ParticleDefinition *exDIon =
-            G4ParticleTable::GetParticleTable()->FindParticle("e-");
+            G4ParticleTable::GetParticleTable()->FindParticle(2112);
 
     exDeuteriumIon->SetParticleDefinition(exDIon);
-    exDeuteriumIon->SetNumberOfParticles(10000);
+    exDeuteriumIon->SetNumberOfParticles(100);
 
     exDeuteriumIon->GetPosDist()->SetPosDisType(
             "Volume"); // Point, Beam, Plane, Surface, Volume
@@ -64,6 +64,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     //  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
 */
 
+/*
     // Realistic energy distribution from Thompson-Parabolla Spectrometer
     exDeuteriumIon->GetEneDist()->SetEnergyDisType("User");
     for (int i = 0; i < gunEne.size(); i++) {
@@ -71,6 +72,13 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
         G4double val = std::get<1>(gunEne.at(i));
         exDeuteriumIon->GetEneDist()->UserEnergyHisto(G4ThreeVector(ehi, val, 0));
     }
+*/
+
+    // Neutron source (mimic fusion neutrons)
+    exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss");
+    exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.5 * MeV);
+    exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.2 * MeV);
+
     // ------------------------------------------------------------------------------------------------------------------------
 }
 
