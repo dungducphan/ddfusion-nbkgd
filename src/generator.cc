@@ -42,6 +42,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
 */
 
+/*
     // Deuteron beam source
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(1, 0, 0));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(0, 1, 0));
@@ -49,9 +50,8 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() / 6);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
+*/
 
-
-/*
     // Deuteron ring source
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(0, 0, 1));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(1, 0, 0));
@@ -59,7 +59,6 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() + TMath::PiOver2()/12);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
-*/
 
 /*
  * Gaussian energy distribution
