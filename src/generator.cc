@@ -34,23 +34,27 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
                                                    G4ThreeVector(0, 0, 1));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
                                                    G4ThreeVector(1, 0, 0));
-
+/*
     // Isotropic deuteron source
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
+*/
 
-/*
     // Deuteron beam source
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(1, 0, 0));
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(0, 1, 0));
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() / 6);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
-*/
+
 
 /*
     // Deuteron ring source
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(0, 0, 1));
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(1, 0, 0));
     exDeuteriumIon->GetAngDist()->SetMinTheta(TMath::PiOver2() - TMath::PiOver2()/12);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() + TMath::PiOver2()/12);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
