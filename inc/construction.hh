@@ -23,12 +23,36 @@
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction {
 public:
-  MyDetectorConstruction();
-  ~MyDetectorConstruction();
+    MyDetectorConstruction();
+    ~MyDetectorConstruction();
 
-  virtual G4VPhysicalVolume* Construct();
-  virtual void ConstructSDandField();
+    virtual G4VPhysicalVolume *Construct();
+    virtual void ConstructSDandField();
 
-  G4GenericMessenger *mMessenger;
-  G4bool mBeFlag;
+    G4LogicalVolume* GetLogicalRCF(G4int thickness, G4Material* material);
+
+    G4GenericMessenger *mMessenger;
+    G4bool mBeFlag;
+
+    G4Material *worldMat;
+    G4Material *beConverterMat;
+    G4Material *aluminumMat;
+    G4Material *mylar;
+    G4Material *copperMat;
+
+    G4LogicalVolume *logicWorld;
+    G4VPhysicalVolume *physWorld;
+
+    G4LogicalVolume *logicRCF;
+    G4VPhysicalVolume *physRCF;
+
+    G4LogicalVolume *logicBeConverter;
+    G4VPhysicalVolume *physBeConverter;
+
+    G4LogicalVolume* logicRCF_13_Al;
+    G4LogicalVolume* logicRCF_109_Mylar;
+    G4LogicalVolume* logicRCF_100_Al;
+    G4LogicalVolume* logicRCF_150_Cu;
+    G4LogicalVolume* logicRCF_1000_Cu;
+    G4LogicalVolume* logicRCF_280_Mylar;
 };

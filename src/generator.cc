@@ -14,7 +14,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
             G4ParticleTable::GetParticleTable()->FindParticle("e-");
 
     exDeuteriumIon->SetParticleDefinition(exDIon);
-    exDeuteriumIon->SetNumberOfParticles(10000);
+    exDeuteriumIon->SetNumberOfParticles(100000);
 
     exDeuteriumIon->GetPosDist()->SetPosDisType(
             "Volume"); // Point, Beam, Plane, Surface, Volume
@@ -28,43 +28,47 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     // exDeuteriumIon->GetPosDist()->SetPosRot2(G4ThreeVector(0., 0., 0.));
     exDeuteriumIon->GetPosDist()->ConfineSourceToVolume("NULL");
 
-    exDeuteriumIon->GetAngDist()->SetAngDistType(
-            "iso"); // Isotropic, Cosine-law, Beam, User-defined
-    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1",
-                                                   G4ThreeVector(0, 0, 1));
-    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
-                                                   G4ThreeVector(1, 0, 0));
+    exDeuteriumIon->GetAngDist()->SetAngDistType("iso"); // Isotropic, Cosine-law, Beam, User-defined
+//    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1",
+//                                                   G4ThreeVector(0, 0, 1));
+//    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
+//                                                   G4ThreeVector(1, 0, 0));
+
 /*
     // Isotropic deuteron source
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(1, 0, 0));
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(0, 1, 0));
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
 */
 
+/*
     // Deuteron beam source
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(1, 0, 0));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(0, 1, 0));
     exDeuteriumIon->GetAngDist()->SetMinTheta(0);
-    exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() / 6);
-    exDeuteriumIon->GetAngDist()->SetMinPhi(0);
-    exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
-
-/*
-    // Deuteron ring source
-    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(0, 0, 1));
-    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(1, 0, 0));
-    exDeuteriumIon->GetAngDist()->SetMinTheta(TMath::PiOver2() - TMath::PiOver2()/12);
-    exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() + TMath::PiOver2()/12);
+    exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi() / 9);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
 */
 
+
+    // Deuteron ring source
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(0, 0, 1));
+    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(1, 0, 0));
+    exDeuteriumIon->GetAngDist()->SetMinTheta(TMath::PiOver2() - TMath::Pi()/9);
+    exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() + TMath::Pi()/9);
+    exDeuteriumIon->GetAngDist()->SetMinPhi(0);
+    exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
+
+
 /*
- * Gaussian energy distribution
-    //  exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
-    //  exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.2 * MeV);
-    //  exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
+    //  Gaussian energy distribution
+    exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss"); // Mono, Lin, Pow, Exp, Gaus, Brem, BBody, Cdg (cosmic diffuse gamma), User, Arb, Epn (energy per nucleon)
+    exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.2 * MeV);
+    exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
 */
 
     // Realistic energy distribution from Thompson-Parabolla Spectrometer
