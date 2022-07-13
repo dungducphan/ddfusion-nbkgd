@@ -26,41 +26,9 @@ G4bool NeutronSD::ProcessHits(G4Step *aStep, G4TouchableHistory *) {
 
     int SensitiveDetectorID = 0;
     if (track->GetParentID() != 0) {
-        if (prePoint->GetPhysicalVolume()->GetName() == "physSD_000") {
-            SensitiveDetectorID = 0;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_001") {
-            SensitiveDetectorID = 1;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_002") {
-            SensitiveDetectorID = 2;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_003") {
-            SensitiveDetectorID = 3;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_004") {
-            SensitiveDetectorID = 4;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_005") {
-            SensitiveDetectorID = 5;
-        } else if (prePoint->GetPhysicalVolume()->GetName() == "physSD_006") {
-            SensitiveDetectorID = 6;
-        } else {
-            SensitiveDetectorID = -1;
-        }
+        SensitiveDetectorID = prePoint->GetPhysicalVolume()->GetCopyNo();
     } else {
-        if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_000") {
-            SensitiveDetectorID = 0;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_001") {
-            SensitiveDetectorID = 1;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_002") {
-            SensitiveDetectorID = 2;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_003") {
-            SensitiveDetectorID = 3;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_004") {
-            SensitiveDetectorID = 4;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_005") {
-            SensitiveDetectorID = 5;
-        } else if (aStep->GetPreStepPoint()->GetPhysicalVolume()->GetName() == "physSD_006") {
-            SensitiveDetectorID = 6;
-        } else {
-            SensitiveDetectorID = -1;
-        }
+        SensitiveDetectorID = aStep->GetPreStepPoint()->GetPhysicalVolume()->GetCopyNo();
     }
 
     G4int parentProcessID = 0;

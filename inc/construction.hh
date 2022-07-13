@@ -39,6 +39,7 @@ public:
     G4Material *aluminumMat;
     G4Material *mylar;
     G4Material *copperMat;
+    G4Material *vacuum;
 
     G4LogicalVolume *logicWorld;
     G4VPhysicalVolume *physWorld;
