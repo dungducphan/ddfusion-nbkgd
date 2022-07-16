@@ -1,4 +1,5 @@
 build*/
 .idea/
+ana*/
 cmake-build-debug/
 cmake-build-release/
