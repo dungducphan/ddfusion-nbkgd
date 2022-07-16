@@ -17,6 +17,15 @@ MyRunAction::MyRunAction() : G4UserRunAction() {
     man->CreateNtupleDColumn("procID");
     man->CreateNtupleDColumn("detID");
     man->FinishNtuple(0);
+
+    man->CreateNtuple("Deuteron", "Deuteron");
+    man->CreateNtupleDColumn("Energy");
+    man->CreateNtupleDColumn("X");
+    man->CreateNtupleDColumn("Y");
+    man->CreateNtupleDColumn("Z");
+    man->CreateNtupleDColumn("T");
+    man->CreateNtupleDColumn("detID");
+    man->FinishNtuple(1);
 }
 
 MyRunAction::~MyRunAction() {

@@ -20,6 +20,7 @@
 #include "TString.h"
 
 #include "neutronsd.hh"
+#include "deuteronsd.hh"
 
 class MyDetectorConstruction : public G4VUserDetectorConstruction {
 public:
@@ -54,6 +55,8 @@ public:
     G4LogicalVolume* logicRCF_109_Mylar;
     G4LogicalVolume* logicRCF_100_Al;
     G4LogicalVolume* logicRCF_150_Cu;
+    G4LogicalVolume* logicRCF_500_Cu;
     G4LogicalVolume* logicRCF_1000_Cu;
     G4LogicalVolume* logicRCF_280_Mylar;
+    G4LogicalVolume* logicRCF_260_Mylar;
 };

@@ -62,13 +62,13 @@ G4bool NeutronSD::ProcessHits(G4Step *aStep, G4TouchableHistory *) {
     }
 
     G4AnalysisManager *man = G4AnalysisManager::Instance();
-    man->FillNtupleDColumn(0, energy / MeV);
-    man->FillNtupleDColumn(1, x_hit / m);
-    man->FillNtupleDColumn(2, y_hit / m);
-    man->FillNtupleDColumn(3, z_hit / m);
-    man->FillNtupleDColumn(4, t_hit / ns);
-    man->FillNtupleDColumn(5, parentProcessID);
-    man->FillNtupleDColumn(6, SensitiveDetectorID);
+    man->FillNtupleDColumn(0,0, energy / MeV);
+    man->FillNtupleDColumn(0,1, x_hit / m);
+    man->FillNtupleDColumn(0,2, y_hit / m);
+    man->FillNtupleDColumn(0,3, z_hit / m);
+    man->FillNtupleDColumn(0,4, t_hit / ns);
+    man->FillNtupleDColumn(0,5, parentProcessID);
+    man->FillNtupleDColumn(0,6, SensitiveDetectorID);
     man->AddNtupleRow(0);
 
     track->SetTrackStatus(fStopAndKill);
