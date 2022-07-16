@@ -11,7 +11,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     // Initiate the particles as electrons
     // Re-define them as D-ion later (there are some issue with GenericIon is not ready at this stage of initialization).
     G4ParticleDefinition *exDIon =
-            G4ParticleTable::GetParticleTable()->FindParticle("e-");
+            G4ParticleTable::GetParticleTable()->FindParticle("neutron");
 
     exDeuteriumIon->SetParticleDefinition(exDIon);
     exDeuteriumIon->SetNumberOfParticles(100000);
@@ -34,7 +34,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
 //    exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2",
 //                                                   G4ThreeVector(1, 0, 0));
 
-/*
+
     // Isotropic deuteron source
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(1, 0, 0));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(0, 1, 0));
@@ -42,7 +42,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::Pi());
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::Pi() * 2.);
-*/
+
 
 /*
     // Deuteron beam source
@@ -54,7 +54,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
 */
 
-
+/*
     // Deuteron ring source
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref1", G4ThreeVector(0, 0, 1));
     exDeuteriumIon->GetAngDist()->DefineAngRefAxes("angref2", G4ThreeVector(1, 0, 0));
@@ -62,7 +62,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetAngDist()->SetMaxTheta(TMath::PiOver2() + TMath::Pi()/9);
     exDeuteriumIon->GetAngDist()->SetMinPhi(0);
     exDeuteriumIon->GetAngDist()->SetMaxPhi(TMath::TwoPi());
-
+*/
 
 /*
     //  Gaussian energy distribution
@@ -71,6 +71,7 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
     exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.1 * MeV);
 */
 
+    /*
     // Realistic energy distribution from Thompson-Parabolla Spectrometer
     exDeuteriumIon->GetEneDist()->SetEnergyDisType("User");
     for (int i = 0; i < gunEne.size(); i++) {
@@ -78,13 +79,14 @@ MyPrimaryGenerator::MyPrimaryGenerator(std::vector<std::pair<G4double, G4double>
         G4double val = std::get<1>(gunEne.at(i));
         exDeuteriumIon->GetEneDist()->UserEnergyHisto(G4ThreeVector(ehi, val, 0));
     }
+    */
 
-/*
+
     // Neutron source (mimic fusion neutrons)
     exDeuteriumIon->GetEneDist()->SetEnergyDisType("Gauss");
     exDeuteriumIon->GetEneDist()->SetMonoEnergy(2.5 * MeV);
     exDeuteriumIon->GetEneDist()->SetBeamSigmaInE(0.2 * MeV);
-*/
+
 
     // ------------------------------------------------------------------------------------------------------------------------
 }
